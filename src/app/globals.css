@@ -1,26 +1,91 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f2f5f9;
+  --foreground: #0f172a;
+  --surface: #f7fbff;
+  --surface-strong: #ffffff;
+  --accent: #0f766e;
+  --accent-2: #1d4ed8;
+  --accent-soft: rgba(15, 118, 110, 0.12);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-manrope);
+  --font-heading: var(--font-space-grotesk);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  background:
+    radial-gradient(circle at 3% 2%, rgba(29, 78, 216, 0.07), transparent 26%),
+    radial-gradient(circle at 97% 2%, rgba(15, 118, 110, 0.08), transparent 30%),
+    var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-manrope), sans-serif;
+  text-rendering: optimizeLegibility;
+  line-height: 1.55;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-space-grotesk), sans-serif;
+}
+
+::selection {
+  background: rgba(15, 118, 110, 0.18);
+  color: #0f172a;
+}
+
+section {
+  scroll-margin-top: 6.5rem;
+}
+
+.section-shell {
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: var(--surface-strong);
+  border-radius: 1.6rem;
+  box-shadow: 0 20px 46px -36px rgba(15, 23, 42, 0.52);
+}
+
+.btn-primary {
+  border-radius: 999px;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 52%, #0f766e 100%);
+  color: #ffffff;
+  border: 1px solid #0f172a;
+  transition: transform 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(135deg, #0f766e 0%, #1d4ed8 100%);
+  box-shadow: 0 14px 24px -16px rgba(29, 78, 216, 0.46);
+}
+
+.btn-secondary {
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: #ffffff;
+  color: #0f172a;
+  transition: border-color 220ms ease, color 220ms ease, transform 220ms ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent-2);
+  color: var(--accent-2);
+  transform: translateY(-1px);
+}
+
+.accent-gradient-text {
+  background: linear-gradient(115deg, #0f172a 15%, #0f766e 55%, #1d4ed8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
