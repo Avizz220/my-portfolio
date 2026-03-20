@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/sections/Footer";
 import { Hero } from "@/components/sections/Hero";
+import { QuickHighlights } from "@/components/sections/QuickHighlights";
 import { ProjectCard } from "@/components/ui/ProjectCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SkillStream } from "@/components/ui/SkillStream";
@@ -110,6 +111,7 @@ export default function Home() {
 
       <Navbar />
       <Hero />
+      <QuickHighlights />
 
       <main className="mx-auto w-full max-w-6xl space-y-20 px-5 py-14 sm:space-y-24 sm:px-8 sm:py-16 lg:px-10 lg:py-18">
         <motion.section
