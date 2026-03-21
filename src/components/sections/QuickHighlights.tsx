@@ -13,8 +13,8 @@ const highlights = [
   },
   {
     title: "Technical Projects",
-    value: "05 Delivered",
-    detail: "Web, mobile, desktop and DevOps",
+    value: "Real-World Project Experience",
+    detail: "Delivered multiple web, mobile, desktop and DevOps projects",
     icon: BriefcaseBusiness,
   },
   {

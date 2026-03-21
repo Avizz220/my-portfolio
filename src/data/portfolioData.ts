@@ -50,7 +50,6 @@ export const contacts: ContactLink[] = [
   { label: "Phone", href: "tel:+94742850328" },
   { label: "GitHub", href: "https://github.com/Avizz220" },
   { label: "LinkedIn", href: "https://rb.gy/hrckip" },
-  { label: "Website", href: "https://vesco.lk" },
 ];
 
 export const education = [
@@ -196,9 +195,26 @@ export const softSkills = [
 ];
 
 export const courses = [
-  "Full Stack Mobile & Web Development (ongoing)",
-  "Mobile Application Development with Flutter & Firebase",
+  {
+    title: "Diploma in Full Stack Mobile & Web Development",
+    provider: "ACPT (Academy of Computer Professional Training)",
+    status: "Currently on hold",
+  },
+  {
+    title: "Diploma in Information Technology",
+    provider: "ESOFT Metro Campus",
+    status: "Currently ongoing",
+  },
+  {
+    title: "Mobile Application Development with Flutter & Firebase",
+    provider: "Focused self-learning",
+    status: "Cross-platform app development focus",
+  },
+];
+
+export const focusedLearningModules = [
   "Web Development",
+  "Mobile Application Development",
   "Software Engineering Principles",
   "Object-Oriented Programming",
   "DevOps Engineering",

@@ -49,7 +49,7 @@ export function Hero() {
           transition={{ duration: 0.55, ease: "easeOut" }}
         >
           <p className="inline-flex items-center rounded-full border border-teal-200/70 bg-teal-50/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent)]">
-            Internship Portfolio
+            Engineering Storyboard
           </p>
           <h1 className="accent-gradient-text mt-4 text-4xl font-semibold tracking-tight sm:text-5xl lg:text-[3.55rem] lg:leading-[1.02]">{profile.fullName}</h1>
           <p className="mt-5 max-w-2xl rounded-xl border border-slate-200/80 bg-white/85 px-4 py-3 text-base font-semibold leading-8 text-slate-700 shadow-sm">
@@ -60,7 +60,7 @@ export function Hero() {
           <div className="mt-9 flex flex-wrap gap-3.5">
             <a
               href="#projects"
-              className="btn-primary inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold"
+              className="inline-flex items-center gap-2 rounded-full border-2 border-black/80 bg-transparent px-6 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5 hover:border-black"
               title="Go to projects section"
             >
               View Projects
@@ -69,7 +69,7 @@ export function Hero() {
             <a
               href={profile.cvPath}
               download
-              className="btn-secondary inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold"
+              className="inline-flex items-center gap-2 rounded-full border-2 border-black/80 bg-transparent px-6 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5 hover:border-black"
               title="Download CV"
             >
               Download CV
@@ -80,6 +80,23 @@ export function Hero() {
           <ul className="mt-9 flex flex-wrap gap-2.5">
             {contacts.map((contact) => {
               const Icon = socialIconMap[contact.label as keyof typeof socialIconMap];
+              const isRevealOnly = contact.label === "Email" || contact.label === "Phone";
+
+              if (isRevealOnly) {
+                const revealValue = contact.label === "Email" ? "ahirushan629@gmail.com" : "0742850328";
+
+                return (
+                  <li key={contact.label}>
+                    <span
+                      className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/95 px-3.5 py-1.5 text-sm text-slate-700"
+                      title={contact.label}
+                    >
+                      {Icon ? <Icon size={15} /> : null}
+                      {revealValue}
+                    </span>
+                  </li>
+                );
+              }
 
               return (
                 <li key={contact.label}>

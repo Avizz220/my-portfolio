@@ -5,7 +5,6 @@ import { ArrowUpRight, Download, ExternalLink, Github, Globe, Linkedin, Mail, Ph
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/sections/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { QuickHighlights } from "@/components/sections/QuickHighlights";
 import { ProjectCard } from "@/components/ui/ProjectCard";
@@ -16,6 +15,7 @@ import {
   contacts,
   courses,
   education,
+  focusedLearningModules,
   languages,
   leadershipHighlights,
   profile,
@@ -43,7 +43,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowIntro(false);
-    }, 1550);
+    }, 3600);
 
     return () => clearTimeout(timer);
   }, []);
@@ -57,25 +57,28 @@ export default function Home() {
             className="pointer-events-none fixed inset-0 z-[120] overflow-hidden"
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.75, ease: "easeInOut" }}
             aria-hidden
           >
             <motion.div
               className="absolute inset-y-0 left-0 w-1/2 bg-gradient-to-br from-slate-900 via-slate-900 to-teal-800"
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
+              exit={{ x: "-120%", opacity: 0.75 }}
               transition={{ duration: 0.65, ease: [0.2, 0.9, 0.2, 1] }}
             />
             <motion.div
               className="absolute inset-y-0 right-0 w-1/2 bg-gradient-to-bl from-slate-900 via-slate-900 to-blue-800"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
+              exit={{ x: "120%", opacity: 0.75 }}
               transition={{ duration: 0.65, ease: [0.2, 0.9, 0.2, 1] }}
             />
             <motion.figure
               className="absolute left-1/2 top-1/2 w-[210px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-3xl border border-white/20 shadow-[0_26px_60px_-28px_rgba(0,0,0,0.65)] sm:w-[260px]"
               initial={{ opacity: 0, scale: 0.85, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.92, y: -16 }}
               transition={{ duration: 0.5, delay: 0.38, ease: "easeOut" }}
             >
               <Image
@@ -95,6 +98,7 @@ export default function Home() {
               className="absolute left-1/2 top-[calc(50%+210px)] w-full -translate-x-1/2 text-center text-xs font-semibold uppercase tracking-[0.24em] text-slate-100 sm:top-[calc(50%+252px)]"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 14 }}
               transition={{ duration: 0.4, delay: 0.75 }}
             >
               Computer Engineering Undergraduate • University of Ruhuna
@@ -103,6 +107,7 @@ export default function Home() {
               className="absolute left-1/2 top-1/2 h-0.5 w-56 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-teal-300 via-white to-blue-300"
               initial={{ scaleX: 0, opacity: 0 }}
               animate={{ scaleX: 1, opacity: [0, 1, 0] }}
+              exit={{ scaleX: 0, opacity: 0 }}
               transition={{ duration: 0.65, delay: 0.45 }}
             />
           </motion.div>
@@ -280,15 +285,35 @@ export default function Home() {
           viewport={{ once: true, amount: 0.2 }}
           className="scroll-mt-28"
         >
-          <SectionHeading eyebrow="Learning" title="Courses & Self-Learning" />
-          <div className="section-shell p-6 sm:p-7">
-            <ul className="flex flex-wrap gap-3">
-              {courses.map((course) => (
-                <li key={course} className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700">
-                  {course}
-                </li>
-              ))}
-            </ul>
+          <SectionHeading
+            eyebrow="Learning"
+            title="Courses & Self-Learning"
+            subtitle="A focused academic and self-driven learning path aligned with software engineering and modern application development."
+          />
+          <div className="grid gap-5 lg:grid-cols-2">
+            <article className="section-shell p-6 sm:p-7">
+              <h3 className="text-lg font-semibold text-slate-900">Courses & Diplomas</h3>
+              <ul className="mt-4 space-y-3">
+                {courses.map((course) => (
+                  <li key={course.title} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                    <p className="text-sm font-semibold text-slate-900">{course.title}</p>
+                    <p className="mt-1 text-sm text-slate-600">{course.provider}</p>
+                    <p className="mt-2 text-xs font-semibold uppercase tracking-[0.1em] text-teal-700">{course.status}</p>
+                  </li>
+                ))}
+              </ul>
+            </article>
+
+            <article className="section-shell bg-slate-50/70 p-6 sm:p-7">
+              <h3 className="text-lg font-semibold text-slate-900">Focused Learning Modules</h3>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {focusedLearningModules.map((module) => (
+                  <li key={module} className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700">
+                    {module}
+                  </li>
+                ))}
+              </ul>
+            </article>
           </div>
         </motion.section>
 
@@ -335,6 +360,22 @@ export default function Home() {
             <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {contacts.map((item) => {
                 const Icon = contactIconMap[item.label as keyof typeof contactIconMap];
+                const isRevealOnly = item.label === "Email" || item.label === "Phone";
+                const revealValue = item.label === "Email" ? "ahirushan629@gmail.com" : "0742850328";
+
+                if (isRevealOnly) {
+                  return (
+                    <li key={item.label}>
+                      <div className="group flex w-full items-center justify-between rounded-xl border border-slate-200 px-4 py-3">
+                        <span className="inline-flex items-center gap-2 text-sm font-medium text-slate-700">
+                          {Icon ? <Icon size={16} /> : null}
+                          {revealValue}
+                        </span>
+                        <ArrowUpRight size={14} className="text-slate-500" />
+                      </div>
+                    </li>
+                  );
+                }
 
                 return (
                   <li key={item.label}>
@@ -360,7 +401,7 @@ export default function Home() {
               <a
                 href={profile.cvPath}
                 download
-                className="btn-primary inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-transparent px-5 py-2.5 text-sm font-semibold text-black transition hover:-translate-y-0.5 hover:border-slate-700"
                 title="Download CV"
               >
                 <Download size={16} />
@@ -370,7 +411,7 @@ export default function Home() {
                 href="https://github.com/Avizz220"
                 target="_blank"
                 rel="noreferrer"
-                className="btn-secondary inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-transparent px-5 py-2.5 text-sm font-semibold text-black transition hover:-translate-y-0.5 hover:border-slate-700"
                 title="Open GitHub profile"
               >
                 <Github size={16} />
@@ -381,7 +422,6 @@ export default function Home() {
         </motion.section>
       </main>
 
-      <Footer />
     </div>
   );
 }
