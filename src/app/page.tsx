@@ -37,8 +37,12 @@ const contactIconMap = {
   Website: Globe,
 };
 
+const introHighlightLine =
+  "Computer Engineering Undergraduate • University of Ruhuna • Passionate about Full-Stack Development";
+
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
+  const [typedIntroLine, setTypedIntroLine] = useState("");
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -47,6 +51,35 @@ export default function Home() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (!showIntro) {
+      setTypedIntroLine("");
+      return;
+    }
+
+    let index = 0;
+    let typingTimer: ReturnType<typeof setInterval> | null = null;
+
+    const startDelay = setTimeout(() => {
+      typingTimer = setInterval(() => {
+        index += 1;
+        setTypedIntroLine(introHighlightLine.slice(0, index));
+
+        if (index >= introHighlightLine.length && typingTimer) {
+          clearInterval(typingTimer);
+        }
+      }, 24);
+    }, 880);
+
+    return () => {
+      clearTimeout(startDelay);
+
+      if (typingTimer) {
+        clearInterval(typingTimer);
+      }
+    };
+  }, [showIntro]);
 
   return (
     <div className="bg-[var(--surface)] text-slate-800">
@@ -95,13 +128,14 @@ export default function Home() {
               </figcaption>
             </motion.figure>
             <motion.p
-              className="absolute left-1/2 top-[calc(50%+210px)] w-full -translate-x-1/2 text-center text-xs font-semibold uppercase tracking-[0.24em] text-slate-100 sm:top-[calc(50%+252px)]"
+              className="absolute left-1/2 top-[calc(50%+210px)] w-full max-w-5xl -translate-x-1/2 px-5 text-center text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-100 sm:top-[calc(50%+252px)]"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 14 }}
               transition={{ duration: 0.4, delay: 0.75 }}
             >
-              Computer Engineering Undergraduate • University of Ruhuna
+              {typedIntroLine}
+              {typedIntroLine.length < introHighlightLine.length ? <span className="ml-0.5 animate-pulse text-teal-200">|</span> : null}
             </motion.p>
             <motion.div
               className="absolute left-1/2 top-1/2 h-0.5 w-56 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-teal-300 via-white to-blue-300"
