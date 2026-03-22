@@ -185,7 +185,7 @@ export default function Home() {
       </AnimatePresence>
 
       <Navbar />
-      <Hero />
+      <Hero shouldStartTyping={!showIntro} />
       <QuickHighlights />
 
       <main className="mx-auto w-full max-w-6xl space-y-20 px-5 py-14 sm:space-y-24 sm:px-8 sm:py-16 lg:px-10 lg:py-18">

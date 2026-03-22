@@ -17,10 +17,19 @@ const socialIconMap = {
   Website: Globe,
 };
 
-export function Hero() {
+type HeroProps = {
+  shouldStartTyping: boolean;
+};
+
+export function Hero({ shouldStartTyping }: HeroProps) {
   const [typedLine, setTypedLine] = useState("");
 
   useEffect(() => {
+    if (!shouldStartTyping) {
+      setTypedLine("");
+      return;
+    }
+
     let index = 0;
 
     const typingTimer = setInterval(() => {
@@ -33,7 +42,7 @@ export function Hero() {
     }, 34);
 
     return () => clearInterval(typingTimer);
-  }, []);
+  }, [shouldStartTyping]);
 
   return (
     <section id="top" className="relative overflow-hidden border-b border-slate-200/80">
