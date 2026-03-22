@@ -38,7 +38,7 @@ const contactIconMap = {
 };
 
 const introHighlightLine =
-  "Computer Engineering Undergraduate University of Ruhuna";
+  "Computer Engineering Undergraduate • University of Ruhuna";
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
