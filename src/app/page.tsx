@@ -45,12 +45,48 @@ export default function Home() {
   const [typedIntroLine, setTypedIntroLine] = useState("");
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const previousScrollRestoration = window.history.scrollRestoration;
+    window.history.scrollRestoration = "manual";
+
+    // Always start from the top and replay intro when the page is loaded/refreshed.
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    setShowIntro(true);
+    setTypedIntroLine("");
+
+    let hideTimer = setTimeout(() => {
       setShowIntro(false);
     }, 3600);
 
-    return () => clearTimeout(timer);
+    const handlePageShow = (event: PageTransitionEvent) => {
+      if (!event.persisted) {
+        return;
+      }
+
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+      setShowIntro(true);
+      setTypedIntroLine("");
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => {
+        setShowIntro(false);
+      }, 3600);
+    };
+
+    window.addEventListener("pageshow", handlePageShow);
+
+    return () => {
+      clearTimeout(hideTimer);
+      window.removeEventListener("pageshow", handlePageShow);
+      window.history.scrollRestoration = previousScrollRestoration;
+    };
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = showIntro ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showIntro]);
 
   useEffect(() => {
     if (!showIntro) {
