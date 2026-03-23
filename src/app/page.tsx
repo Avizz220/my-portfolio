@@ -18,6 +18,7 @@ import {
   focusedLearningModules,
   languages,
   leadershipHighlights,
+  achievements,
   profile,
   projects,
   skillCategories,
@@ -211,6 +212,40 @@ export default function Home() {
                 </span>
               ))}
             </div>
+
+            <div className="mt-7 rounded-2xl border border-slate-200 bg-slate-50/70 p-5 sm:p-6">
+              <h3 className="text-lg font-semibold text-slate-900">Why Hire Me Over Others?</h3>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.1em] text-slate-700">
+                  Impact
+                </span>
+                <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.1em] text-slate-700">
+                  Thinking
+                </span>
+                <span className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.1em] text-slate-700">
+                  Real Skills
+                </span>
+              </div>
+
+              <ul className="mt-4 space-y-2.5 text-sm leading-7 text-slate-700">
+                <li className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--accent)]" aria-hidden />
+                  <span>Hard-working and consistent in delivery.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--accent)]" aria-hidden />
+                  <span>Self-learner who continuously improves through practice and exploration.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--accent)]" aria-hidden />
+                  <span>Eager to learn new technologies and adapt quickly to evolving requirements.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="mt-2 h-1.5 w-1.5 rounded-full bg-[var(--accent)]" aria-hidden />
+                  <span>Can handle challenging situations with clear communication and strong teamwork.</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </motion.section>
 
@@ -313,6 +348,68 @@ export default function Home() {
         </motion.section>
 
         <motion.section
+          id="achievements"
+          variants={sectionReveal}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          className="scroll-mt-28"
+        >
+          <SectionHeading
+            eyebrow="Achievements"
+            title="Competition Participation"
+            subtitle="Competitive experiences that strengthened practical problem-solving, backend engineering, and team-based execution under real constraints."
+          />
+
+          <div className="grid gap-5 sm:grid-cols-2">
+            {achievements.map((item) => {
+              return (
+                <article
+                  key={item.title}
+                  className="section-shell group overflow-hidden bg-white/95"
+                >
+                  <div className="relative h-[210px] overflow-hidden sm:h-[220px]">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      width={1200}
+                      height={760}
+                      className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-slate-950/72 to-transparent" aria-hidden />
+                    <a
+                      href={item.linkedInPost}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/70 bg-white/88 text-[#0A66C2] shadow-sm backdrop-blur transition hover:-translate-y-0.5 hover:bg-white"
+                      title={`Open ${item.title} LinkedIn post`}
+                    >
+                      <Linkedin size={16} />
+                    </a>
+                    <p className="absolute bottom-3 left-3 rounded-full border border-white/35 bg-black/45 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur">
+                      Competition Highlight
+                    </p>
+                  </div>
+
+                  <div className="p-4 sm:p-5">
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">{item.organizer}</p>
+                    <h3 className="mt-2 text-lg font-semibold text-slate-900">{item.title}</h3>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
+                    <ul className="mt-3 flex flex-wrap gap-2">
+                      {item.tags.map((tag) => (
+                        <li key={`${item.title}-${tag}`} className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700">
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </motion.section>
+
+        <motion.section
           id="leadership"
           variants={sectionReveal}
           initial="hidden"
@@ -334,7 +431,7 @@ export default function Home() {
               </ul>
             </article>
 
-            <article className="section-shell bg-slate-50/70 p-6 sm:p-7">
+            <article className="section-shell flex h-full flex-col bg-slate-50/70 p-6 sm:p-7">
               <h3 className="text-lg font-semibold text-slate-900">Core Professional Strengths</h3>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {softSkills.map((skill) => (
@@ -343,6 +440,15 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
+
+              <div className="mt-auto pt-6">
+                <div className="rounded-xl border border-slate-200/80 bg-white/80 p-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">Applied in Team Settings</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-700">
+                    These strengths are practiced across university projects, leadership activities, and collaborative software delivery.
+                  </p>
+                </div>
+              </div>
             </article>
           </div>
         </motion.section>
@@ -374,7 +480,7 @@ export default function Home() {
               </ul>
             </article>
 
-            <article className="section-shell bg-slate-50/70 p-6 sm:p-7">
+            <article className="section-shell flex h-full flex-col bg-slate-50/70 p-6 sm:p-7">
               <h3 className="text-lg font-semibold text-slate-900">Focused Learning Modules</h3>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {focusedLearningModules.map((module) => (
@@ -383,6 +489,15 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
+
+              <div className="mt-auto pt-6">
+                <div className="rounded-xl border border-slate-200/80 bg-white/80 p-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate-500">Learning Direction</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-700">
+                    Continuous self-learning with hands-on project implementation across core software engineering domains.
+                  </p>
+                </div>
+              </div>
             </article>
           </div>
         </motion.section>

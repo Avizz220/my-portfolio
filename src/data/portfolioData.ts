@@ -23,11 +23,22 @@ export type ProjectItem = {
   images?: string[];
 };
 
+export type AchievementItem = {
+  title: string;
+  organizer: string;
+  description: string;
+  image: string;
+  orientation?: "landscape" | "portrait";
+  tags: string[];
+  linkedInPost: string;
+};
+
 export const navItems: NavItem[] = [
   { id: "about", label: "About" },
   { id: "education", label: "Education" },
   { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
+  { id: "achievements", label: "Achievements" },
   { id: "leadership", label: "Leadership" },
   { id: "courses", label: "Courses" },
   { id: "certificates", label: "Certificates" },
@@ -41,7 +52,7 @@ export const profile = {
     "Third-year Computer Engineering undergraduate at the University of Ruhuna focused on building reliable, user-centered software across web, mobile, and desktop platforms.",
   summary:
     "I build practical software products with strong engineering fundamentals, clean architecture, and collaborative workflows. My experience spans React and Next.js frontends, backend services with Node.js and Spring Boot, and mobile apps with Flutter and Firebase, supported by Git-based teamwork and DevOps practices.",
-  locationNote: "University of Ruhuna, Sri Lanka",
+  locationNote: "No 05 G, Galgane Purana Vihara Road, Polwatta, Weligama",
   cvPath: "/Avishka_Hirushan_CV_CGPA_TechProjects_AIUpdated_v2.pdf",
 };
 
@@ -58,7 +69,7 @@ export const education = [
     period: "2023 - Present",
     degree: "B.Sc. (Hons) in Engineering",
     focus: "Faculty of Engineering - Specializing in Computer Engineering",
-    note: "CGPA: 3.48 / 4.00 (up to 3rd semester)",
+    note: "CGPA: 3.48 / 4.00 (CGPA)",
     primary: true,
   },
   {
@@ -176,6 +187,31 @@ export const projects: ProjectItem[] = [
       "/vehicleinventory/Screenshot 2026-03-21 002959.png",
       "/vehicleinventory/Screenshot 2026-03-21 003103.png",
     ],
+  },
+];
+
+export const achievements: AchievementItem[] = [
+  {
+    title: "Red Cyper Capture the Flag",
+    organizer: "Faculty of Engineering, University of Ruhuna",
+    description:
+      "Participated in the Red Cyper CTF competition, solving cybersecurity and problem-solving challenges in a focused team environment.",
+    image: "/recyper_02.jpeg",
+    orientation: "landscape",
+    tags: ["CTF", "Cybersecurity", "Problem Solving"],
+    linkedInPost:
+      "https://www.linkedin.com/posts/gavesh-tharuka-a30911320_ctfchallenge-uor-foe-ugcPost-7345380594534518784-Oi9y?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEdjD8UBF6wQkO8DGhfiOTjDpICJymX3F_Q",
+  },
+  {
+    title: "Ballerina Web Development Competition",
+    organizer: "University of Moratuwa",
+    description:
+      "Participated in a web application competition focused on building backend-powered solutions using Ballerina for service development.",
+    image: "/ballerina.jpg",
+    orientation: "landscape",
+    tags: ["Ballerina", "Web Development", "Backend"],
+    linkedInPost:
+      "https://www.linkedin.com/posts/avishka-hirushan-771122295_im-pleased-to-share-that-i-participated-activity-7439188934661820416-oY2x?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEdjD8UBF6wQkO8DGhfiOTjDpICJymX3F_Q",
   },
 ];
 
