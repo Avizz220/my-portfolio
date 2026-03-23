@@ -4,7 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight, Download, Github, Globe, Linkedin, Mail, Phone } from "lucide-react";
 import { useEffect, useState } from "react";
-import { contacts, profile, projects } from "@/data/portfolioData";
+import { contacts, profile } from "@/data/portfolioData";
 
 const highlightLine =
   "Computer Engineering Undergraduate • University of Ruhuna • Passionate about Full-Stack Development";
@@ -23,7 +23,6 @@ type HeroProps = {
 
 export function Hero({ shouldStartTyping }: HeroProps) {
   const [typedLine, setTypedLine] = useState("");
-  const liveDemoUrl = projects.find((project) => project.live)?.live;
 
   useEffect(() => {
     if (!shouldStartTyping) {
@@ -85,18 +84,6 @@ export function Hero({ shouldStartTyping }: HeroProps) {
               Download CV
               <Download size={16} />
             </a>
-            {liveDemoUrl ? (
-              <a
-                href={liveDemoUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border-2 border-black/80 bg-transparent px-6 py-3 text-sm font-semibold text-black transition hover:-translate-y-0.5 hover:border-black"
-                title="Open live demo"
-              >
-                Live Demo
-                <ArrowRight size={16} />
-              </a>
-            ) : null}
           </div>
 
           <ul className="mt-9 flex flex-wrap gap-2.5">

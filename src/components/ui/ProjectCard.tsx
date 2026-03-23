@@ -38,14 +38,14 @@ export function ProjectCard({ title, description, stack, github, live, featured,
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
       transition={{ duration: 0.45, delay: index * 0.06, ease: "easeOut" }}
-      className="group relative overflow-hidden rounded-3xl border border-slate-200/90 bg-white p-6 shadow-[0_22px_46px_-36px_rgba(15,23,42,0.55)] transition duration-300 hover:-translate-y-1.5 hover:border-blue-200"
+      className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200/90 bg-white p-6 shadow-[0_22px_46px_-36px_rgba(15,23,42,0.55)] transition duration-300 hover:-translate-y-1.5 hover:border-blue-200"
     >
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" aria-hidden>
         <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-[radial-gradient(circle,rgba(15,118,110,0.24)_0%,rgba(15,118,110,0)_70%)]" />
         <div className="absolute -left-8 bottom-0 h-24 w-24 rounded-full bg-[radial-gradient(circle,rgba(29,78,216,0.16)_0%,rgba(29,78,216,0)_70%)]" />
       </div>
 
-      <div className="relative">
+      <div className="relative flex h-full flex-col">
         {hasImages ? (
           <div className="relative mb-5 overflow-hidden rounded-2xl border border-slate-200 bg-slate-100">
             <div className="relative h-48 w-full sm:h-52">
@@ -98,7 +98,7 @@ export function ProjectCard({ title, description, stack, github, live, featured,
           ))}
         </ul>
 
-        <div className="mt-6 flex flex-wrap items-center gap-3 text-sm font-semibold text-slate-900">
+        <div className="mt-auto flex flex-wrap items-center gap-3 pt-6 text-sm font-semibold text-slate-900">
           <a
             href={github}
             target="_blank"
@@ -115,7 +115,7 @@ export function ProjectCard({ title, description, stack, github, live, featured,
               target="_blank"
               rel="noreferrer"
               title={`Open ${title} live site`}
-              className="btn-primary inline-flex items-center gap-2 border-transparent px-4 py-2"
+              className="inline-flex items-center gap-2 rounded-full border-2 border-black/80 bg-transparent px-4 py-2 text-sm font-semibold text-black transition hover:-translate-y-0.5 hover:border-black"
             >
               Live Demo
               <ArrowUpRight size={16} />
