@@ -42,40 +42,48 @@ const introHighlightLine =
   "Computer Engineering Undergraduate • University of Ruhuna";
 
 export default function Home() {
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(false);
+  const [introResolved, setIntroResolved] = useState(false);
   const [typedIntroLine, setTypedIntroLine] = useState("");
 
   useEffect(() => {
     const previousScrollRestoration = window.history.scrollRestoration;
     window.history.scrollRestoration = "manual";
 
-    // Always start from the top and replay intro when the page is loaded/refreshed.
+    // Always start from the top on load/refresh.
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    setShowIntro(true);
-    setTypedIntroLine("");
 
-    let hideTimer = setTimeout(() => {
-      setShowIntro(false);
-    }, 3600);
+    const hasSeenIntro = window.sessionStorage.getItem("portfolio-intro-seen") === "true";
+    const shouldShowIntro = !hasSeenIntro;
+    setShowIntro(shouldShowIntro);
+    setIntroResolved(true);
+
+    let hideTimer: ReturnType<typeof setTimeout> | null = null;
+
+    if (shouldShowIntro) {
+      setTypedIntroLine("");
+      window.sessionStorage.setItem("portfolio-intro-seen", "true");
+      hideTimer = setTimeout(() => {
+        setShowIntro(false);
+      }, 3600);
+    }
 
     const handlePageShow = (event: PageTransitionEvent) => {
       if (!event.persisted) {
         return;
       }
 
+      // BFCache restore should not replay the intro; just keep viewport at top.
       window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-      setShowIntro(true);
-      setTypedIntroLine("");
-      clearTimeout(hideTimer);
-      hideTimer = setTimeout(() => {
-        setShowIntro(false);
-      }, 3600);
+      setShowIntro(false);
     };
 
     window.addEventListener("pageshow", handlePageShow);
 
     return () => {
-      clearTimeout(hideTimer);
+      if (hideTimer) {
+        clearTimeout(hideTimer);
+      }
       window.removeEventListener("pageshow", handlePageShow);
       window.history.scrollRestoration = previousScrollRestoration;
     };
@@ -186,7 +194,7 @@ export default function Home() {
       </AnimatePresence>
 
       <Navbar />
-      <Hero shouldStartTyping={!showIntro} />
+      <Hero shouldStartTyping={introResolved && !showIntro} />
       <QuickHighlights />
 
       <main className="mx-auto w-full max-w-6xl space-y-20 px-5 py-14 sm:space-y-24 sm:px-8 sm:py-16 lg:px-10 lg:py-18">
